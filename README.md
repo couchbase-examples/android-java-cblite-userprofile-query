@@ -1,4 +1,4 @@
-[![Build Standalone](https://github.com/couchbase-examples/android-java-cblite-userprofile-standalone/actions/workflows/standalone-build-workflow.yml/badge.svg)](https://github.com/couchbase-examples/android-java-cblite-userprofile-standalone/actions/workflows/standalone-build-workflow.yml)
+[![Build App](https://github.com/couchbase-examples/android-java-cblite-userprofile-query/actions/workflows/build-workflow.yml/badge.svg)](https://github.com/couchbase-examples/android-java-cblite-userprofile-query/actions/workflows/build-workflow.yml)
 
 # Quickstart in Couchbase Lite with Android and Java 
 #### Build an Android App in Java with Couchbase Lite 
