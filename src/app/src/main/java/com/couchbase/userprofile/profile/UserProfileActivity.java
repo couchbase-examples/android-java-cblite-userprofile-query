@@ -78,31 +78,6 @@ public class UserProfileActivity
                     }
             });
 
-    /*
-    ****  REMOVE ME PLEASE AFTER TESTING
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                Uri selectedImage = data.getData();
-
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    imageView.setImageBitmap(bitmap);
-                } catch (IOException ex) {
-                    Log.i("SelectPhoto", ex.getMessage());
-                }
-            }
-        }
-        else if (requestCode == PICK_UNIVERSITY && resultCode == Activity.RESULT_OK) {
-            universityText.setText(data.getStringExtra("result"));
-        }
-    }
-     */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,9 +106,6 @@ public class UserProfileActivity
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         mainActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
-
-        //REMOVE ME AFTER TESTING
-        //startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
 
@@ -142,9 +114,6 @@ public class UserProfileActivity
         Intent intent = new Intent(getApplicationContext(), UniversitiesActivity.class);
         intent.setAction(Intent.ACTION_PICK);
         mainActivityResultLauncher.launch(intent);
-
-        //REMOVE ME AFTER TESTING
-        //startActivityForResult(intent, PICK_UNIVERSITY);
     }
 
     public void onLogoutTapped(View view) {
