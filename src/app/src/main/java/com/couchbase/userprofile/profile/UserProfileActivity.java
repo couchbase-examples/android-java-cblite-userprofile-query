@@ -64,12 +64,13 @@ public class UserProfileActivity
                             {
                                 if (data != null) {
                                     Uri selectedImage = data.getData();
-
-                                    try {
-                                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                                        imageView.setImageBitmap(bitmap);
-                                    } catch (IOException ex) {
-                                        Log.i("SelectPhoto", ex.getMessage());
+                                    if (selectedImage != null) {
+                                        try {
+                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                                            imageView.setImageBitmap(bitmap);
+                                        } catch (IOException ex) {
+                                            Log.i("SelectPhoto", ex.getMessage());
+                                        }
                                     }
                                 }
                             }
@@ -107,8 +108,6 @@ public class UserProfileActivity
         intent.setAction(Intent.ACTION_GET_CONTENT);
         mainActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
     }
-
-
 
     public void onUniversityTapped(View view) {
         Intent intent = new Intent(getApplicationContext(), UniversitiesActivity.class);
