@@ -55,7 +55,7 @@ jobs:
           keyPassword: ${{secrets.KEY_PASSWORD}} 
       - name: Upload artifact to App Center for Testing 
         run: | 
-          appcenter distribute release --token "${{secrets.APPCENTER_API_KEY}}"  --app "Couchbase-Inc./UserProfile-Query-Android" --group "Collaborators" --file "${{steps.sign_app.outputs.signedReleaseFile}}" --silent --debug --release-notes "${{ github.event.head_commit.message }}"
+          appcenter distribute release --token "${{secrets.APPCENTER_QUERY_API_KEY}}"  --app "Couchbase-Inc./UserProfile-Query-Android" --group "Collaborators" --file "${{steps.sign_app.outputs.signedReleaseFile}}" --silent --debug --release-notes "${{ github.event.head_commit.message }}"
       - name: Sign Test Artifact App
         id: sign_app_uitest
         uses: r0adkll/sign-android-release@v1 
