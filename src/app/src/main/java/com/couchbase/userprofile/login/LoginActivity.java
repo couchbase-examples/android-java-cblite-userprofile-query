@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.couchbase.userprofile.R;
 import com.couchbase.userprofile.profile.UserProfileActivity;
@@ -16,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText usernameInput;
     EditText passwordInput;
+    AppCompatImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,16 @@ public class LoginActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
+
+        //makes logging in easier for testing
+        imageView = findViewById(R.id.imageViewLogo);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usernameInput.setText("demo@example.com");
+                passwordInput.setText("password");
+            }
+        });
     }
 
     public void onLoginTapped(View view) {
