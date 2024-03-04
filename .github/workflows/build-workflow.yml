@@ -15,37 +15,44 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     steps:
       - name: Update using apt
         run: | 
           apt update || echo 'apt-update failed' # && apt -y upgrade
       - name: Use Node.Js ${{matrix.node-version}} 
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}} 
       - name: Install app-center cli with NodeJS
         run: | 
-          npm install -g appcenter-cli@2.10.7
+          npm install -g appcenter-cli
       - name: Checkout the code
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v4
       - name: Setup JDK environment
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
           java-version: '17'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Change wrapper permissions
+        run: chmod +x ./src/gradlew
       - name: Update Version of app
-        uses: chkfung/android-version-actions@v1.1
+        uses: chkfung/android-version-actions@v1.2.2
         with:
           gradlePath: ./src/app/build.gradle
           versionCode: ${{github.run_number}} 
           versionName: 1.0.${{github.run_number}} 
-      - name: Build the app
-        uses: eskatos/gradle-command-action@v1
-        with: 
-          build-root-directory: ./src/
-          wrapper-directory: ./src/
+      # Run Build Project
+      - name: Build gradle project
+        run: ./gradlew build
+        working-directory: ./src
+      - name: Build APK Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
           arguments: assembleDebug assembleAndroidTest
+          build-root-directory: ./src/
       - name: Sign Artifact App
         id: sign_app 
         uses: r0adkll/sign-android-release@v1 
@@ -72,4 +79,3 @@ jobs:
           rm src/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
           mv src/app/build/outputs/apk/androidTest/debug/app-debug-androidTest-signed.apk src/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
           appcenter test run espresso --token "${{secrets.APPCENTER_API_KEY}}" --app "Couchbase-Inc./UserProfile-Query-Android" --devices "Couchbase-Inc./devices" --app-path "src/app/build/outputs/apk/debug/app-debug-signed.apk" --test-series "userprofile-query" --locale "en_US" --build-dir "src/app/build/outputs/apk/androidTest/debug" 
-          # appcenter test run espresso --token "${{secrets.APPCENTER_API_KEY}}" --app "Couchbase-Inc./UserProfile-Query-Android" --devices 84a3abc4 --app-path "src/app/build/outputs/apk/debug/app-debug-signed.apk" --test-series "userprofile-query" --locale "en_US" --build-dir "src/app/build/outputs/apk/androidTest/debug" 
