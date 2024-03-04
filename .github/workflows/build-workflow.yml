@@ -62,6 +62,8 @@ jobs:
           alias: ${{secrets.KEYSTORE_ALIAS}} 
           keyStorePassword: ${{secrets.KEYSTORE_PASSWORD}} 
           keyPassword: ${{secrets.KEY_PASSWORD}} 
+        env:
+         BUILD_TOOLS_VERSION: "34.0.0"
       - name: Upload artifact to App Center for Testing 
         run: | 
           appcenter distribute release --token "${{secrets.APPCENTER_API_KEY}}"  --app "Couchbase-Inc./UserProfile-Query-Android" --group "Collaborators" --file "${{steps.sign_app.outputs.signedReleaseFile}}" --silent --debug --release-notes "${{ github.event.head_commit.message }}"
