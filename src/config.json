@@ -1,0 +1,31 @@
+{
+  "cloudURL": "trial.app.perfectomobile.com",
+  "securityToken": "",
+  "devices": [
+	{
+        	"platformName": "Android",
+        	"model" : "(?!.*Tab).*" 
+      	},
+      	{
+	   	"platformName": "Android",
+           	"model" : "(?!.*Tab).*" 
+	}
+  ],
+  "jobName": "android_userprofile_query",
+  "jobNumber": 1,
+  "branch": "main",
+  "projectName": "AndroidTutorials",
+  "projectVersion": "v1.0",
+  "tags": [
+    "espresso", "plugin"
+  ],
+  "apkPath": "app/build/outputs/apk/debug/app-debug.apk",
+  "testApkPath": "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+  "installationDetails" : {"preCleanUp" : "true"},
+  "postExecution" : {"uninstall" : "false" },
+  "debug": false,
+  "failBuildOnFailure": true,
+  "takeScreenshotOnTestFailure": true,
+  "shard": false,
+  "testTimeout" : 60000
+}
